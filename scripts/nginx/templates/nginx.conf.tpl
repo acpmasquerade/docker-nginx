@@ -25,7 +25,7 @@ http
     server
     {
         listen          80;
-        server_name     localhost;
+        server_name     {{ server_name }};
         # HTTPS redirect
         return 301 https://$host$request_uri;
     }
@@ -40,7 +40,7 @@ http
         {% else %}
         listen              80;
         {% endif %}
-        server_name         localhost;
+        server_name         {{ server_name }};
 
         # reverse proxy configuration
         {% for location in locations %}
