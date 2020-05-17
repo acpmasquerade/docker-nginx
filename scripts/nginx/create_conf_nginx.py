@@ -9,6 +9,8 @@ def main():
     confdata = {}
     # ssl configuration
     confdata["ssl"] = False
+    confdata["server_name"] = os.environ.get("NGINX_SERVER_NAME", "localhost")
+        confdata
     if "NGINX_SSL_CERT" in os.environ and "NGINX_SSL_KEY" in os.environ:
         confdata["ssl"] = True
         confdata["sslcertfile"] = os.environ["NGINX_SSL_CERT"]
