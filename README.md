@@ -19,6 +19,7 @@ from port 80 to 443. If the variables are not set, just port 80 will be open.
 ## Accessing the NGINX Logs
 Mount /var/log/nginx to some folder on your host machine
 eg. 
+
 `./logs/:/var/log/nginx/`
 
 
