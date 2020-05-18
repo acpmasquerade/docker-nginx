@@ -6,10 +6,14 @@ import jinja2
 
 def main():
     # create dict for template engine
-    confdata = {}
+    confdata = {
+        'server_name': 'localhost'
+    }
     # ssl configuration
     confdata["ssl"] = False
-    confdata["server_name"] = os.environ.get("NGINX_SERVER_NAME", "localhost")
+    # server_name
+    if "NGINX_SERVER_NAME" in os.environ:
+        confdata["server_name"] = os.environ["NGINX_SERVER_NAME"]
     if "NGINX_SSL_CERT" in os.environ and "NGINX_SSL_KEY" in os.environ:
         confdata["ssl"] = True
         confdata["sslcertfile"] = os.environ["NGINX_SSL_CERT"]
@@ -41,6 +45,11 @@ def main():
     # print output to stdout
     print(output)
 
+    # Write the generated config file, if boolean switch is present
+    if os.environ.get("NGINX_LOG_CONFIG", "false").lower() in ["yes", "true", "1", "y"]:
+        ff=open("/var/log/nginx/nginx.conf.log", "w")
+        ff.write(output)
+        ff.close()
 
 if __name__  == "__main__":
     main()
