@@ -1,0 +1,19 @@
+version: "3.0"
+services:
+  nginx:
+    image: acpmasquerade/docker-nginx:latest
+    build: .
+    ports:
+    - "5001:80"
+    - "5002:443"
+    environment:
+      NGINX_SSL_CERT: "/data/cert/cert.pem"
+      NGINX_SSL_KEY: "/data/cert/key.pem"
+      NGINX_LOCATION_DEFAULT: "/;/;http://datagerry:4000"
+      NGINX_SERVER_NAME: "example.com"
+      NGINX_LOG_CONFIG: "yes"
+    restart: unless-stopped
+    volumes:
+      - ./cert/:/data/cert/
+      - ./logs/:/var/log/nginx/
+
